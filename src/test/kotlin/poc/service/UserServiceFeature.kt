@@ -25,7 +25,7 @@ object UserServiceFeature : Spek({
                 userService = UserService(customProperties)
             }
 
-            When("retrieve the greeting from the Greeting handler") {
+            When("retrieve the greeting from the user service") {
                 result = userService.findUser(userId)
             }
 
