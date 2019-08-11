@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.cloud.contract.verifier.config.TestFramework
+import org.springframework.cloud.contract.verifier.config.TestMode
 
 plugins {
     val kotlinVersion = "1.3.31"
@@ -8,15 +10,21 @@ plugins {
     jacoco
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "2.1.5.RELEASE"
+    id("io.spring.dependency-management") version "1.0.6.RELEASE"
+    id("org.springframework.cloud.contract") version "2.1.2.RELEASE"
 }
-
-apply(plugin = "io.spring.dependency-management")
 
 group = "poc"
 version = "1.0-SNAPSHOT"
 
 repositories {
     jcenter()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-starter-contract-verifier:2.1.2.RELEASE")
+    }
 }
 
 val springBootVersion = "2.1.5.RELEASE"
@@ -49,11 +57,13 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
     testImplementation("io.projectreactor:reactor-test")
 
     testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
     testImplementation("io.rest-assured:json-path:$restAssuredVersion")
     testImplementation("io.rest-assured:xml-path:$restAssuredVersion")
+    testImplementation("io.rest-assured:spring-web-test-client:$restAssuredVersion")
 }
 
 tasks.withType<KotlinCompile> {
@@ -70,4 +80,12 @@ tasks.withType<Test> {
 
 jacoco {
     toolVersion = "0.8.2"
+}
+
+contracts {
+    testMode = TestMode.WEBTESTCLIENT
+    testFramework = TestFramework.JUNIT5
+    baseClassMappings = mapOf(
+        "users" to "poc.web.reactive.router.AbstractUsersContractTest"
+    )
 }
