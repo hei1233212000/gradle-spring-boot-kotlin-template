@@ -3,19 +3,18 @@ package poc.web.reactive.router
 import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.context.annotation.Import
 import org.springframework.test.web.reactive.server.WebTestClient
 import poc.model.User
 import poc.service.UserService
 import poc.web.reactive.handle.UserHandler
 
-@ExtendWith(SpringExtension::class)
 @DisplayName("API test of /users")
-@WebFluxTest(value = arrayOf(UserRouter::class, UserHandler::class))
+@WebFluxTest(value = [UserRouter::class])
+@Import(UserHandler::class)
 class UserApiTest {
     @Autowired
     private lateinit var webClient: WebTestClient
