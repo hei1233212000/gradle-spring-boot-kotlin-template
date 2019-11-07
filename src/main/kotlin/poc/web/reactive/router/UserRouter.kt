@@ -16,5 +16,10 @@ class UserRouter {
                     .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
                 HandlerFunction<ServerResponse> { userHandler.findUser(it) }
             )
+            .andRoute(
+                RequestPredicates.GET("/users-proxy/{id}")
+                    .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+                HandlerFunction<ServerResponse> { userHandler.findUserByRestfulCall(it) }
+            )
     }
 }

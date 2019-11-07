@@ -19,4 +19,14 @@ class UserHandler(
             .contentType(MediaType.APPLICATION_JSON)
             .body(BodyInserters.fromObject(user))
     }
+
+    fun findUserByRestfulCall(request: ServerRequest): Mono<ServerResponse> {
+        val id = request.pathVariable("id").toLong()
+        val user = userService.findUserByRestfulCall(id)
+        return user?.let {
+            ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromObject(it))
+        } ?: ServerResponse.noContent().build()
+    }
 }

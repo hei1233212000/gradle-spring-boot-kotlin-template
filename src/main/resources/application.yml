@@ -1,2 +1,6 @@
+server:
+  port: 8080
+
 custom:
   message: Hello World
+  user-proxy-url: http://localhost:${server.port}/users

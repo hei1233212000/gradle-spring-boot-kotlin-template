@@ -7,4 +7,5 @@ import org.springframework.stereotype.Component
 @ConfigurationProperties(prefix = "custom")
 class CustomProperties {
     lateinit var message: String
+    lateinit var userProxyUrl: String
 }
