@@ -12,14 +12,12 @@ plugins {
     id("org.springframework.boot") version "2.1.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.cloud.contract") version "2.1.2.RELEASE"
-    `maven-publish`
 }
 
 group = "poc"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenLocal()
     jcenter()
 }
 
