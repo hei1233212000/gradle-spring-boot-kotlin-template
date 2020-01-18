@@ -7,8 +7,8 @@ plugins {
     idea
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
     jacoco
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "2.1.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.6.RELEASE"
     id("org.springframework.cloud.contract") version "2.1.2.RELEASE"
@@ -34,6 +34,7 @@ val spekVersion = "2.0.5"
 val kluentVersion = "1.49"
 val mockitoKotlinVersion = "2.1.0"
 val restAssuredVersion = "4.0.0"
+val cucumberVersion = "5.0.0-RC4"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
@@ -67,6 +68,11 @@ dependencies {
     testImplementation("io.rest-assured:json-path:$restAssuredVersion")
     testImplementation("io.rest-assured:xml-path:$restAssuredVersion")
     testImplementation("io.rest-assured:spring-web-test-client:$restAssuredVersion")
+
+    testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
+    testImplementation("io.cucumber:cucumber-junit:$cucumberVersion")
+    testImplementation("org.junit.vintage:junit-vintage-engine:$junitVersion")
 }
 
 tasks.withType<KotlinCompile> {
@@ -75,7 +81,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform {
-        includeEngines("junit-jupiter", "spek2")
+        includeEngines("junit-jupiter", "spek2", "junit-vintage")
     }
 
     finalizedBy("jacocoTestReport")
