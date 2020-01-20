@@ -7,20 +7,13 @@ import org.hamcrest.core.Is
 import org.hamcrest.core.IsEqual
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
-import org.springframework.test.context.ActiveProfiles
+import poc.test.AbstractAcceptanceTest
 
 /**
  * This End-to-End test is using the Stub of external service
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureStubRunner(
-    ids = ["poc:gradle-spring-boot-kotlin-template:+:stubs:8100"]
-)
-@ActiveProfiles("test")
-class UserProxyE2ERestTest {
+class UserProxyE2ERestTest : AbstractAcceptanceTest() {
     @LocalServerPort
     private lateinit var port: String
 

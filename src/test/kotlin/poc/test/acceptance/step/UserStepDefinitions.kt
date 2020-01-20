@@ -12,7 +12,7 @@ class UserStepDefinitions(
     private var user: User? = null
 
     init {
-        Given("user with id {long} already exist") { userId: Long -> /* do nothing for the moment */ }
+        Given("user with id {long} already exist") { _: Long -> /* do nothing for the moment */ }
 
         When("I try to find user by id = {long}") { userId: Long ->
             user = null
