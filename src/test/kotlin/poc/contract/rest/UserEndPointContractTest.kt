@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.test.context.ActiveProfiles
 
+/**
+ * This is consumer side contract test
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureStubRunner(
     ids = ["poc:gradle-spring-boot-kotlin-template:+:stubs:8100"]
