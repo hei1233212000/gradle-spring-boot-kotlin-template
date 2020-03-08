@@ -7,13 +7,20 @@ import org.hamcrest.core.Is
 import org.hamcrest.core.IsEqual
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
-import poc.test.AbstractAcceptanceTest
+import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
+import org.springframework.test.context.ActiveProfiles
 
 /**
  * This End-to-End test is using the Stub of external service
  */
-class UserProxyE2ERestTest : AbstractAcceptanceTest() {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@AutoConfigureStubRunner(
+    ids = ["poc:gradle-spring-boot-kotlin-template:+:stubs:8100"]
+)
+class UserProxyE2ERestTest {
     @LocalServerPort
     private lateinit var port: String
 
@@ -29,9 +36,9 @@ class UserProxyE2ERestTest : AbstractAcceptanceTest() {
 
         given()
             .accept(ContentType.JSON)
-        .`when`()
+            .`when`()
             .get("http://localhost:$port/users-proxy/$userId")
-        .then()
+            .then()
             .statusCode(200)
             .contentType(ContentType.JSON)
             // the response will be provided by the stub
