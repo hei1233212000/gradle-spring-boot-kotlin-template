@@ -17,7 +17,7 @@ class UserHandler(
         val user = userService.findUser(id)
         return ServerResponse.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(BodyInserters.fromObject(user))
+            .body(BodyInserters.fromValue(user))
     }
 
     fun findUserByRestfulCall(request: ServerRequest): Mono<ServerResponse> {
@@ -26,7 +26,7 @@ class UserHandler(
         return user?.let {
             ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(it))
+                .body(BodyInserters.fromValue(it))
         } ?: ServerResponse.noContent().build()
     }
 }

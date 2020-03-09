@@ -9,9 +9,9 @@ plugins {
     kotlin("kapt") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     jacoco
-    id("org.springframework.boot") version "2.1.5.RELEASE"
-    id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    id("org.springframework.cloud.contract") version "2.1.2.RELEASE"
+    id("org.springframework.boot") version "2.2.5.RELEASE"
+    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    id("org.springframework.cloud.contract") version "2.2.2.RELEASE"
 }
 
 group = "poc"
@@ -23,18 +23,17 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.cloud:spring-cloud-starter-contract-verifier:2.1.2.RELEASE")
+        mavenBom("org.springframework.cloud:spring-cloud-starter-contract-verifier:2.2.2.RELEASE")
     }
 }
 
-val springBootVersion = "2.1.5.RELEASE"
-val junitVersion = "5.5.0-RC1"
-val junitPlatformVersion = "1.5.0-RC1"
-val spekVersion = "2.0.5"
-val kluentVersion = "1.49"
-val mockitoKotlinVersion = "2.1.0"
-val restAssuredVersion = "4.0.0"
-val cucumberVersion = "5.0.0-RC4"
+val junitVersion = "5.6.0"
+val junitPlatformVersion = "1.6.0"
+val spekVersion = "2.0.9"
+val kluentVersion = "1.59"
+val mockitoKotlinVersion = "2.2.0"
+val restAssuredVersion = "4.2.0"
+val cucumberVersion = "5.4.2"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
@@ -60,7 +59,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-    // this is a trick  to use the stub generated in the same project
+    // this is a trick to use the stub generated in the same project
     testImplementation(files("libs/gradle-spring-boot-kotlin-template-1.0-SNAPSHOT-stubs.jar"))
     testImplementation("io.projectreactor:reactor-test")
 
@@ -88,13 +87,15 @@ tasks.withType<Test> {
 }
 
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.5"
 }
 
 contracts {
-    testMode = TestMode.WEBTESTCLIENT
-    testFramework = TestFramework.JUNIT5
-    baseClassMappings = mapOf(
-        "users" to "poc.web.reactive.router.AbstractUsersContractTest"
+    setTestMode(TestMode.WEBTESTCLIENT)
+    setTestFramework(TestFramework.JUNIT5)
+    setBaseClassMappings(
+        mapOf(
+            "users" to "poc.web.reactive.router.AbstractUsersContractTest"
+        )
     )
 }
