@@ -33,7 +33,7 @@ val spekVersion = "2.0.9"
 val kluentVersion = "1.59"
 val mockitoKotlinVersion = "2.2.0"
 val restAssuredVersion = "4.2.0"
-val cucumberVersion = "5.4.2"
+val cucumberVersion = "5.7.0"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
@@ -70,8 +70,7 @@ dependencies {
 
     testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
-    testImplementation("io.cucumber:cucumber-junit:$cucumberVersion")
-    testImplementation("org.junit.vintage:junit-vintage-engine:$junitVersion")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
 }
 
 tasks.withType<KotlinCompile> {
@@ -79,10 +78,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform {
-        includeEngines("junit-jupiter", "spek2", "junit-vintage")
-    }
-
+    useJUnitPlatform()
     finalizedBy("jacocoTestReport")
 }
 
