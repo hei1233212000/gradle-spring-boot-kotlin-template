@@ -21,8 +21,9 @@ repositories {
     jcenter()
 }
 
-dependencyManagement {
+the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
     imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
         mavenBom("org.springframework.cloud:spring-cloud-starter-contract-verifier:2.2.2.RELEASE")
     }
 }
