@@ -1,5 +1,8 @@
 server:
   port: 8080
+logging:
+  pattern:
+    console: "[%d{HH:mm:ss.SSS}] [%thread] [%highlight(%-5level)] [%logger{36}.%method\\(\\)] [%msg]%n"
 
 custom:
   message: Hello World
