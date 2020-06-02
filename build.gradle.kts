@@ -35,10 +35,12 @@ val kluentVersion = "1.59"
 val mockitoKotlinVersion = "2.2.0"
 val restAssuredVersion = "4.2.0"
 val cucumberVersion = "5.7.0"
+val jjwtVersion = "0.9.1"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // we need both to make IDEA working
@@ -72,6 +74,8 @@ dependencies {
     testImplementation("io.cucumber:cucumber-spring:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-java8:$cucumberVersion")
     testImplementation("io.cucumber:cucumber-junit-platform-engine:$cucumberVersion")
+
+    testImplementation("io.jsonwebtoken:jjwt:$jjwtVersion")
 }
 
 tasks.withType<KotlinCompile> {

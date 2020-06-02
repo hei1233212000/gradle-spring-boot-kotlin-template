@@ -6,6 +6,7 @@ import org.amshove.kluent.`should not be`
 import poc.model.User
 import poc.test.acceptance.service.TestUserService
 
+@Suppress("unused")
 class UserStepDefinitions(
     private val testUserService: TestUserService
 ) : En {

@@ -4,6 +4,15 @@ logging:
   pattern:
     console: "[%d{HH:mm:ss.SSS}] [%thread] [%highlight(%-5level)] [%logger{36}.%method\\(\\)] [%msg]%n"
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+#          use jwk-set-uri when work with real auth server. e.g.: Keycloak
+#          jwk-set-uri: http://localhost:8083/auth/realms/spring-boot-poc-realm/protocol/openid-connect/certs
+          public-key-location: classpath:jwt-public-key.p8
+
 custom:
   message: Hello World
   user-proxy-url: http://localhost:${server.port}/users

@@ -13,4 +13,5 @@ import org.springframework.test.context.ActiveProfiles
 @AutoConfigureStubRunner(
     ids = ["poc:gradle-spring-boot-kotlin-template:+:stubs:8100"]
 )
+@Suppress("unused")
 class StartupSpringInCucumber : En
