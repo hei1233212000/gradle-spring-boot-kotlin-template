@@ -34,7 +34,7 @@ val spekVersion = "2.0.9"
 val kluentVersion = "1.59"
 val mockitoKotlinVersion = "2.2.0"
 val restAssuredVersion = "4.2.0"
-val cucumberVersion = "5.7.0"
+val cucumberVersion = "6.0.0-RC2"
 val jjwtVersion = "0.9.1"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
