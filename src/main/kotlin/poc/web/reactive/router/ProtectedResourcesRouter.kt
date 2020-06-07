@@ -2,10 +2,14 @@ package poc.web.reactive.router
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
-import org.springframework.web.reactive.function.BodyInserters
+import org.springframework.web.reactive.function.BodyInserters.fromValue
 import org.springframework.web.reactive.function.server.*
+import org.springframework.web.reactive.function.server.RequestPredicates.*
+import org.springframework.web.reactive.function.server.ServerResponse.ok
+import org.springframework.web.reactive.function.server.ServerResponse.status
 
 @Configuration
 class ProtectedResourcesRouter {
@@ -13,31 +17,33 @@ class ProtectedResourcesRouter {
     fun routeTpProtectedResources(): RouterFunction<ServerResponse> {
         return RouterFunctions
             .route(
-                RequestPredicates.GET("/protected/reader"),
+                GET("/protected/reader"),
                 HandlerFunction {
-                    ServerResponse.ok()
+                    ok()
                         .contentType(MediaType.TEXT_PLAIN)
-                        .body(BodyInserters.fromValue("You have READ access"))
+                        .body(fromValue("You have READ access"))
                 }
             )
             .andRoute(
-                RequestPredicates.GET("/protected/writer"),
+                GET("/protected/writer"),
                 HandlerFunction {
-                    ServerResponse.ok()
+                    ok()
                         .contentType(MediaType.TEXT_PLAIN)
-                        .body(BodyInserters.fromValue("You have WRITE access"))
+                        .body(fromValue("You have WRITE access"))
                 }
             )
             .andRoute(
-                RequestPredicates.GET("/protected"),
+                GET("/protected"),
                 HandlerFunction { serverRequest ->
                     serverRequest.principal()
                         .map { it as JwtAuthenticationToken }
                         .flatMap { jwtAuthenticationToken ->
-                            ServerResponse.ok()
+                            ok()
                                 .contentType(MediaType.TEXT_PLAIN)
-                                .body(BodyInserters.fromValue("You are \"${jwtAuthenticationToken.name}\""))
-                        }
+                                .body(fromValue("You are \"${jwtAuthenticationToken.name}\""))
+                        }.switchIfEmpty(
+                            status(HttpStatus.FORBIDDEN).body(fromValue("You have to provide JWT"))
+                        )
                 }
             )
     }
