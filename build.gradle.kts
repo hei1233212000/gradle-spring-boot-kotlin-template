@@ -21,10 +21,16 @@ repositories {
     jcenter()
 }
 
-the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
+dependencyManagement {
     imports {
         mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
-        mavenBom("org.springframework.cloud:spring-cloud-starter-contract-verifier:2.2.2.RELEASE")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR5")
     }
 }
 
