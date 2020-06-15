@@ -1,3 +1,2 @@
 custom:
   message: This is a test message
-  user-proxy-url: http://localhost:8100/users

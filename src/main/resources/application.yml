@@ -15,4 +15,3 @@ spring:
 
 custom:
   message: Hello World
-  user-proxy-url: http://localhost:${server.port}/users

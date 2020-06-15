@@ -20,11 +20,6 @@ class UserStepDefinitions(
             user = testUserService.findUserById(userId)
         }
 
-        When("I try to find user by id = {long} with proxy API") { userId: Long ->
-            user = null
-            user = testUserService.findUserById(userId, useProxyApi = true)
-        }
-
         Then("the name of the retrieved user is {string}") { userName: String ->
             user `should not be` null
             user!!.name `should be equal to` userName

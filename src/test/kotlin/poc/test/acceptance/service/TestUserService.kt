@@ -14,8 +14,7 @@ class TestUserService(
     @LocalServerPort
     private val port: Int
 ) {
-    fun findUserById(userId: Long, useProxyApi: Boolean = false): User? {
-        val path = if (useProxyApi) "users-proxy" else "users"
-        return restTemplate.getForEntity("http://localhost:$port/$path/$userId", User::class.java).body
+    fun findUserById(userId: Long): User? {
+        return restTemplate.getForEntity("http://localhost:$port/users/$userId", User::class.java).body
     }
 }

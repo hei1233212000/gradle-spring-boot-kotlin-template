@@ -3,7 +3,6 @@ package poc.test.acceptance
 import io.cucumber.java8.En
 import io.cucumber.spring.CucumberContextConfiguration
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner
 import org.springframework.test.context.ActiveProfiles
 
 /**
@@ -11,9 +10,6 @@ import org.springframework.test.context.ActiveProfiles
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@AutoConfigureStubRunner(
-    ids = ["poc:gradle-spring-boot-kotlin-template:+:stubs:8100"]
-)
 @CucumberContextConfiguration
 @Suppress("unused")
 class StartupSpringInCucumber : En

@@ -68,8 +68,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-stub-runner")
-    // this is a trick to use the stub generated in the same project
-    testImplementation(files("libs/gradle-spring-boot-kotlin-template-1.0-SNAPSHOT-stubs.jar"))
     testImplementation("io.projectreactor:reactor-test")
 
     testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
