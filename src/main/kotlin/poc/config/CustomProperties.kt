@@ -1,10 +1,10 @@
 package poc.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.stereotype.Component
+import org.springframework.boot.context.properties.ConstructorBinding
 
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "custom")
-class CustomProperties {
-    lateinit var message: String
-}
+data class CustomProperties(
+    val message: String
+)

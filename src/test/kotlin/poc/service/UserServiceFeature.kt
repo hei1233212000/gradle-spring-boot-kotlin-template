@@ -23,9 +23,9 @@ object UserServiceFeature : Spek({
             lateinit var result: User
 
             Given("the greeting message is defined") {
-                customProperties = CustomProperties().apply {
-                    this.message = message
-                }
+                customProperties = CustomProperties(
+                    message = message
+                )
             }
 
             And("logger is constructed") {
