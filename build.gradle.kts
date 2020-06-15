@@ -3,13 +3,13 @@ import org.springframework.cloud.contract.verifier.config.TestFramework
 import org.springframework.cloud.contract.verifier.config.TestMode
 
 plugins {
-    val kotlinVersion = "1.3.31"
+    val kotlinVersion = "1.3.72"
     idea
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     jacoco
-    id("org.springframework.boot") version "2.2.5.RELEASE"
+    id("org.springframework.boot") version "2.3.0.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.cloud.contract") version "2.2.2.RELEASE"
 }
