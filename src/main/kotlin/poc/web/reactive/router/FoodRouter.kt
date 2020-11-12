@@ -4,17 +4,17 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.*
-import poc.web.reactive.handle.UserHandler
+import poc.web.reactive.handle.FoodHandler
 
 @Configuration
-class UserRouter {
+class FoodRouter {
     @Bean
-    fun getAllUserRoutes(userHandler: UserHandler): RouterFunction<ServerResponse> {
+    fun getAllFoodRoutes(foodHandler: FoodHandler): RouterFunction<ServerResponse> {
         return RouterFunctions
             .route(
-                RequestPredicates.GET("/users/{id}")
+                RequestPredicates.GET("/foods/{foodName}")
                     .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
-                HandlerFunction { userHandler.findUser(it) }
+                { foodHandler.findFood(it) }
             )
     }
 }

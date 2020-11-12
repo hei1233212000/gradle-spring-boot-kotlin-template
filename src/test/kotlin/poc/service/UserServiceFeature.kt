@@ -1,15 +1,13 @@
 package poc.service
 
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import io.mockk.mockk
+import io.mockk.verify
 import org.amshove.kluent.`should be equal to`
-import org.amshove.kluent.`should be`
 import org.slf4j.Logger
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 import poc.config.CustomProperties
 import poc.model.User
-import com.nhaarman.mockitokotlin2.check as argCheck
 
 object UserServiceFeature : Spek({
     Feature("Find user feature") {
@@ -29,7 +27,7 @@ object UserServiceFeature : Spek({
             }
 
             And("logger is constructed") {
-                logger = mock()
+                logger = mockk(relaxed = true)
             }
 
             And("userService is prepared") {
@@ -53,14 +51,9 @@ object UserServiceFeature : Spek({
             }
 
             And("the operation should have a log message") {
-                verify(logger).info(
-                    argCheck {
-                        it `should be equal to` "userId: {}"
-                    },
-                    argCheck<Any> {
-                        it `should be` userId
-                    }
-                )
+                verify {
+                    logger.info("userId: {}", userId)
+                }
             }
         }
     }

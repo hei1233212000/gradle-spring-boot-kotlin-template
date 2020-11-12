@@ -3,19 +3,20 @@ import org.springframework.cloud.contract.verifier.config.TestFramework
 import org.springframework.cloud.contract.verifier.config.TestMode
 
 plugins {
-    val kotlinVersion = "1.3.72"
+    val kotlinVersion = "1.4.10"
     idea
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
     jacoco
-    id("org.springframework.boot") version "2.3.0.RELEASE"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    id("org.springframework.cloud.contract") version "2.2.2.RELEASE"
+    id("org.springframework.boot") version "2.4.0"
+    id("io.spring.dependency-management") version "1.0.10.RELEASE"
+    id("org.springframework.cloud.contract") version "2.2.5.RELEASE"
 }
 
 group = "poc"
 version = "1.0-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     jcenter()
@@ -30,17 +31,18 @@ configurations {
 dependencyManagement {
     imports {
         mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR5")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR9")
+        mavenBom("io.r2dbc:r2dbc-bom:Arabba-SR8")
     }
 }
 
-val junitVersion = "5.6.0"
-val junitPlatformVersion = "1.6.0"
+val junitVersion = "5.7.0"
+val junitPlatformVersion = "1.7.0"
 val spekVersion = "2.0.9"
-val kluentVersion = "1.59"
-val mockitoKotlinVersion = "2.2.0"
-val restAssuredVersion = "4.2.0"
-val cucumberVersion = "6.0.0-RC2"
+val kluentVersion = "1.61"
+val mockkVersion = "1.10.2"
+val restAssuredVersion = "4.3.2"
+val cucumberVersion = "6.8.0"
 val jjwtVersion = "0.9.1"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -48,6 +50,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
+    implementation("io.r2dbc:r2dbc-h2")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // we need both to make IDEA working
     kapt("org.springframework.boot:spring-boot-configuration-processor")
@@ -63,7 +69,7 @@ dependencies {
     testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:$spekVersion")
 
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-starter-contract-verifier")
@@ -83,7 +89,10 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
 }
 
 tasks.withType<Test> {
