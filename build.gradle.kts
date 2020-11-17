@@ -54,6 +54,8 @@ dependencies {
     implementation("io.r2dbc:r2dbc-h2")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.liquibase:liquibase-core")
+    implementation("org.springframework:spring-jdbc")
 
     // we need both to make IDEA working
     kapt("org.springframework.boot:spring-boot-configuration-processor")

@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: v1
+      author: harry
+      changes:
+        - createTable:
+            tableName: FOOD
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            columns:
+              - column:
+                  name: NAME
+            indexName: IDX_FOOD_NAME
+            tableName: FOOD
+            unique: true
+        - insert:
+            columns:
+              - column:
+                  name: NAME
+                  value: Apple
+            tableName: FOOD
